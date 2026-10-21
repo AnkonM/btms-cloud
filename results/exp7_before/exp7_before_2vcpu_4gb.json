@@ -1,0 +1,100 @@
+{
+  "config": {
+    "name": "exp7_before_2vcpu_4gb",
+    "cpus": 2,
+    "memory_mb": 4096,
+    "workers": 4,
+    "threads": 4
+  },
+  "startup_to_healthy_s": 3.1,
+  "fixed_rate": {
+    "requests": 1500,
+    "ok": 1500,
+    "errors": 0,
+    "error_rate": 0.0,
+    "error_codes": {},
+    "offered_rps": 25,
+    "achieved_rps": 25.01,
+    "wall_s": 59.97,
+    "mean_ms": 16.59,
+    "p50_ms": 15.19,
+    "p95_ms": 26.76,
+    "p99_ms": 30.47,
+    "max_ms": 36.54,
+    "by_endpoint": {
+      "/api/predict": {
+        "n": 1283,
+        "p50_ms": 14.83,
+        "p95_ms": 17.79
+      },
+      "/api/optimize": {
+        "n": 217,
+        "p50_ms": 25.1,
+        "p95_ms": 31.32
+      }
+    },
+    "resources": {
+      "samples": 30,
+      "cpu_cores_mean": 0.394,
+      "cpu_cores_p95": 0.546,
+      "cpu_cores_max": 0.749,
+      "cpu_util_of_limit_mean_pct": 19.7,
+      "mem_mib_mean": 202.6,
+      "mem_mib_max": 217.6,
+      "mem_util_of_limit_max_pct": 5.3
+    }
+  },
+  "saturation": {
+    "requests": 1077,
+    "ok": 1077,
+    "errors": 0,
+    "error_rate": 0.0,
+    "error_codes": {},
+    "offered_rps": null,
+    "achieved_rps": 35.73,
+    "wall_s": 30.14,
+    "mean_ms": 335.21,
+    "p50_ms": 286.46,
+    "p95_ms": 779.4,
+    "p99_ms": 1571.14,
+    "max_ms": 2613.2,
+    "by_endpoint": {
+      "/api/predict": {
+        "n": 908,
+        "p50_ms": 267.72,
+        "p95_ms": 410.2
+      },
+      "/api/optimize": {
+        "n": 169,
+        "p50_ms": 604.13,
+        "p95_ms": 1800.21
+      }
+    },
+    "concurrency": 12,
+    "resources": {
+      "samples": 15,
+      "cpu_cores_mean": 1.887,
+      "cpu_cores_p95": 2.008,
+      "cpu_cores_max": 2.014,
+      "cpu_util_of_limit_mean_pct": 94.4,
+      "mem_mib_mean": 236.8,
+      "mem_mib_max": 249.0,
+      "mem_util_of_limit_max_pct": 6.1
+    }
+  },
+  "drain_after_fixed_phase_s": 1.0,
+  "oom_killed": false,
+  "container_exit_code": 0,
+  "environment": {
+    "run_at": "2026-10-21T15:00:40+00:00",
+    "host_os": "Linux 6.18.33.2-microsoft-standard-WSL2",
+    "host_logical_cpus": 16,
+    "docker_server": "29.9.1",
+    "image": "ankonm/btms-api:1.0",
+    "design_rps": 25,
+    "fixed_seconds": 60,
+    "sat_concurrency": 12,
+    "sat_seconds": 30,
+    "workload": "85% /api/predict, 15% /api/optimize, fixed-seed payloads (bench/loadgen.py)"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "description": "Experiment 7 - initial (over-provisioned) deployment: sized by guesswork, 2 vCPU / 4 GiB, 4 gunicorn workers",
+  "configs": [
+    {"name": "exp7_before_2vcpu_4gb", "cpus": 2, "memory_mb": 4096, "workers": 4, "threads": 4}
+  ]
+}

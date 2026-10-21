@@ -1,0 +1,138 @@
+{
+  "valid": {
+    "T1_city_drive_normal": {
+      "mode": "discharge",
+      "c_rate": 1.0,
+      "soc_start": 0.95,
+      "soh": 0.95,
+      "ambient_temp": 30.0,
+      "inlet_temp": 25.0,
+      "start_temp": 30.0,
+      "reynolds": 500.0,
+      "phi_pct": 0.5,
+      "duration_min": 20.0
+    },
+    "T2_highway_hot_day_warning": {
+      "mode": "discharge",
+      "c_rate": 2.8,
+      "soc_start": 0.95,
+      "soh": 0.75,
+      "ambient_temp": 40.0,
+      "inlet_temp": 32.0,
+      "start_temp": 37.0,
+      "reynolds": 450.0,
+      "phi_pct": 0.5,
+      "duration_min": 20.0
+    },
+    "T3_fast_discharge_heatwave": {
+      "mode": "discharge",
+      "c_rate": 3.0,
+      "soc_start": 0.95,
+      "soh": 0.75,
+      "ambient_temp": 42.0,
+      "inlet_temp": 35.0,
+      "start_temp": 38.0,
+      "reynolds": 450.0,
+      "phi_pct": 0.5,
+      "duration_min": 20.0
+    },
+    "T4_aged_pack_extreme_heat": {
+      "mode": "discharge",
+      "c_rate": 3.0,
+      "soc_start": 0.95,
+      "soh": 0.7,
+      "ambient_temp": 45.0,
+      "inlet_temp": 35.0,
+      "start_temp": 39.0,
+      "reynolds": 450.0,
+      "phi_pct": 0.5,
+      "duration_min": 20.0
+    },
+    "T5_hot_soaked_pack_precool": {
+      "mode": "discharge",
+      "c_rate": 2.8,
+      "soc_start": 0.95,
+      "soh": 0.75,
+      "ambient_temp": 45.0,
+      "inlet_temp": 32.0,
+      "start_temp": 44.0,
+      "reynolds": 450.0,
+      "phi_pct": 0.5,
+      "duration_min": 20.0
+    },
+    "T6_fast_charge": {
+      "mode": "charge",
+      "c_rate": 2.0,
+      "soc_start": 0.1,
+      "soh": 0.75,
+      "ambient_temp": 40.0,
+      "inlet_temp": 32.0,
+      "start_temp": 37.0,
+      "reynolds": 450.0,
+      "phi_pct": 0.5,
+      "duration_min": 20.0
+    }
+  },
+  "invalid": {
+    "I1_out_of_range_reynolds": {
+      "mode": "discharge",
+      "c_rate": 2.8,
+      "soc_start": 0.95,
+      "soh": 0.75,
+      "ambient_temp": 40.0,
+      "inlet_temp": 32.0,
+      "start_temp": 37.0,
+      "reynolds": 900.0,
+      "phi_pct": 0.5,
+      "duration_min": 20.0
+    },
+    "I2_wrong_type_and_missing": {
+      "mode": "discharge",
+      "c_rate": "fast",
+      "soc_start": 0.95,
+      "ambient_temp": 40.0,
+      "inlet_temp": 32.0,
+      "start_temp": 37.0,
+      "reynolds": 450.0,
+      "phi_pct": 0.5,
+      "duration_min": 20.0
+    },
+    "I3_bad_mode": {
+      "mode": "idle",
+      "c_rate": 2.8,
+      "soc_start": 0.95,
+      "soh": 0.75,
+      "ambient_temp": 40.0,
+      "inlet_temp": 32.0,
+      "start_temp": 37.0,
+      "reynolds": 450.0,
+      "phi_pct": 0.5,
+      "duration_min": 20.0
+    },
+    "I4_charge_above_2C": {
+      "mode": "charge",
+      "c_rate": 3.0,
+      "soc_start": 0.95,
+      "soh": 0.75,
+      "ambient_temp": 40.0,
+      "inlet_temp": 32.0,
+      "start_temp": 37.0,
+      "reynolds": 450.0,
+      "phi_pct": 0.5,
+      "duration_min": 20.0
+    },
+    "I5_unknown_field": {
+      "mode": "discharge",
+      "c_rate": 2.8,
+      "soc_start": 0.95,
+      "soh": 0.75,
+      "ambient_temp": 40.0,
+      "inlet_temp": 32.0,
+      "start_temp": 37.0,
+      "reynolds": 450.0,
+      "phi_pct": 0.5,
+      "duration_min": 20.0,
+      "voltage": 3.7
+    }
+  }
+}

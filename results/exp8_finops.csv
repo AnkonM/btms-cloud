@@ -1,0 +1,5 @@
+name,vcpu,memory_gib,workers,threads,achieved_rps,p50_ms,p95_ms,p99_ms,error_rate_pct,cpu_cores_mean,cpu_cores_p95,cpu_util_pct,mem_mib_max,mem_util_pct,sat_rps,sat_p95_ms,sat_cpu_cores,meets_slo,usd_per_hour,usd_per_month,usd_per_million_req_at_70pct,tasks_for_100rps,fleet_usd_per_month,startup_s,oom_killed
+exp8_A_0.25vcpu_0.5gb,0.25,0.5,1,4,0.26,2866.26,4242.77,4713.49,97.93,0.25,0.255,100.0,168.8,33.0,0.0,,0.25,False,0.01234,9.01,,,,7.2,False
+exp8_B_0.5vcpu_1gb,0.5,1.0,1,4,2.5,15.92,4054.42,4746.27,81.4,0.49,0.505,98.0,165.7,16.2,8.47,2095.61,0.482,False,0.02469,18.02,1.1565,17,306.34,4.0,False
+exp8_C_1vcpu_2gb,1,2.0,2,4,25.01,15.67,27.47,34.45,0.0,0.409,0.599,40.9,177.8,8.7,17.02,1388.2,0.949,True,0.04937,36.04,1.1511,9,324.36,2.0,False
+exp8_D_2vcpu_4gb,2,4.0,4,4,25.01,14.99,25.88,30.46,0.0,0.391,0.587,19.6,184.2,4.5,35.09,860.33,1.904,True,0.09874,72.08,1.1166,5,360.4,2.0,False

@@ -1,0 +1,101 @@
+{
+  "before": {
+    "name": "exp7_before_2vcpu_4gb",
+    "vcpu": 2,
+    "memory_gib": 4.0,
+    "workers": 4,
+    "threads": 4,
+    "achieved_rps": 25.01,
+    "p50_ms": 15.19,
+    "p95_ms": 26.76,
+    "p99_ms": 30.47,
+    "error_rate_pct": 0.0,
+    "cpu_cores_mean": 0.394,
+    "cpu_cores_p95": 0.546,
+    "cpu_util_pct": 19.7,
+    "mem_mib_max": 217.6,
+    "mem_util_pct": 5.3,
+    "sat_rps": 35.73,
+    "sat_p95_ms": 779.4,
+    "sat_cpu_cores": 1.887,
+    "meets_slo": true,
+    "usd_per_hour": 0.09874,
+    "usd_per_month": 72.08,
+    "usd_per_million_req_at_70pct": 1.0966,
+    "tasks_for_100rps": 4,
+    "fleet_usd_per_month": 288.32,
+    "startup_s": 3.1,
+    "oom_killed": false
+  },
+  "after": {
+    "name": "exp7_after_1vcpu_2gb",
+    "vcpu": 1,
+    "memory_gib": 2.0,
+    "workers": 2,
+    "threads": 4,
+    "achieved_rps": 25.01,
+    "p50_ms": 14.37,
+    "p95_ms": 24.09,
+    "p99_ms": 30.0,
+    "error_rate_pct": 0.0,
+    "cpu_cores_mean": 0.368,
+    "cpu_cores_p95": 0.555,
+    "cpu_util_pct": 36.8,
+    "mem_mib_max": 177.7,
+    "mem_util_pct": 8.7,
+    "sat_rps": 19.58,
+    "sat_p95_ms": 1190.75,
+    "sat_cpu_cores": 0.947,
+    "meets_slo": true,
+    "usd_per_hour": 0.04937,
+    "usd_per_month": 36.04,
+    "usd_per_million_req_at_70pct": 1.0006,
+    "tasks_for_100rps": 8,
+    "fleet_usd_per_month": 288.32,
+    "startup_s": 2.0,
+    "oom_killed": false
+  },
+  "recommendation": {
+    "measured": {
+      "cpu_cores_mean": 0.394,
+      "cpu_cores_p95": 0.546,
+      "mem_mib_max": 217.6,
+      "cpu_util_of_limit_mean_pct": 19.7,
+      "mem_util_of_limit_max_pct": 5.3
+    },
+    "rule": {
+      "target_p95_cpu_util": 0.7,
+      "mem_headroom": 1.5,
+      "required_vcpu": 0.78,
+      "required_mem_mib": 163.2
+    },
+    "before": {
+      "cpus": 2,
+      "memory_mb": 4096,
+      "workers": 4,
+      "threads": 4
+    },
+    "after": {
+      "cpus": 1,
+      "memory_mb": 2048,
+      "workers": 2,
+      "threads": 4
+    }
+  },
+  "change": {
+    "vcpu_reduction_pct": 50.0,
+    "memory_reduction_pct": 50.0,
+    "cost_reduction_pct": 50.0,
+    "monthly_saving_usd": 36.04,
+    "p95_delta_ms": -2.67,
+    "cpu_util_before_pct": 19.7,
+    "cpu_util_after_pct": 36.8,
+    "mem_util_before_pct": 5.3,
+    "mem_util_after_pct": 8.7
+  },
+  "slo": {
+    "p95_ms": 250.0,
+    "error_rate": 0.01
+  },
+  "pricing_basis": "ESTIMATE, not an actual bill. AWS Fargate on-demand list price, Linux/x86, US East (N. Virginia). The AWS pricing page quotes per-second rates of USD 0.000011244 per vCPU-second and USD 0.000001235 per GB-second; multiplied by 3600."
+}

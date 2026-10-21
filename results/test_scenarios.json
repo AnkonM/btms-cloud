@@ -1,0 +1,365 @@
+{
+  "valid": [
+    {
+      "name": "T1_city_drive_normal",
+      "input": {
+        "mode": "discharge",
+        "c_rate": 1.0,
+        "soc_start": 0.95,
+        "soh": 0.95,
+        "ambient_temp": 30.0,
+        "inlet_temp": 25.0,
+        "start_temp": 30.0,
+        "reynolds": 500.0,
+        "phi_pct": 0.5,
+        "duration_min": 20.0
+      },
+      "t_max_c": 30.0,
+      "t_max_interval_90": [
+        29.53,
+        30.48
+      ],
+      "delta_t_c": 0.41,
+      "hotspot": "C2",
+      "hotspot_top3": [
+        "C2",
+        "C9",
+        "C8"
+      ],
+      "risk": "normal",
+      "risk_action": "Maintain current cooling settings.",
+      "opt_status": "feasible",
+      "opt_action": "Set coolant Re\u2248400 (0.67 L/min), inlet 25 \u00b0C, nanofluid 0.0 vol%.",
+      "opt_recommendation": {
+        "reynolds": 400.0,
+        "phi_pct": 0.0,
+        "inlet_temp_c": 25.0,
+        "flow_l_min": 0.673,
+        "predicted_t_max_upper_c": 30.48,
+        "predicted_delta_t_upper_c": 0.77,
+        "pumping_power_w": 0.0157,
+        "chiller_power_w": 0.0,
+        "total_cooling_power_w": 0.016
+      },
+      "twin_t_max_c": 30.0,
+      "twin_delta_t_c": 0.36,
+      "twin_hotspot": "C2"
+    },
+    {
+      "name": "T2_highway_hot_day_warning",
+      "input": {
+        "mode": "discharge",
+        "c_rate": 2.8,
+        "soc_start": 0.95,
+        "soh": 0.75,
+        "ambient_temp": 40.0,
+        "inlet_temp": 32.0,
+        "start_temp": 37.0,
+        "reynolds": 450.0,
+        "phi_pct": 0.5,
+        "duration_min": 20.0
+      },
+      "t_max_c": 41.33,
+      "t_max_interval_90": [
+        40.85,
+        41.8
+      ],
+      "delta_t_c": 1.65,
+      "hotspot": "C2",
+      "hotspot_top3": [
+        "C2",
+        "C9",
+        "C8"
+      ],
+      "risk": "warning",
+      "risk_action": "Increase cooling: call /api/optimize for a setpoint recommendation.",
+      "opt_status": "feasible",
+      "opt_action": "Set coolant Re\u2248600 (0.90 L/min), inlet 30 \u00b0C, nanofluid 2.0 vol%.",
+      "opt_recommendation": {
+        "reynolds": 600.0,
+        "phi_pct": 2.0,
+        "inlet_temp_c": 30.0,
+        "flow_l_min": 0.898,
+        "predicted_t_max_upper_c": 39.96,
+        "predicted_delta_t_upper_c": 1.9,
+        "pumping_power_w": 0.02632,
+        "chiller_power_w": 35.458,
+        "total_cooling_power_w": 35.485
+      },
+      "twin_t_max_c": 40.68,
+      "twin_delta_t_c": 1.1,
+      "twin_hotspot": "C2"
+    },
+    {
+      "name": "T3_fast_discharge_heatwave",
+      "input": {
+        "mode": "discharge",
+        "c_rate": 3.0,
+        "soc_start": 0.95,
+        "soh": 0.75,
+        "ambient_temp": 42.0,
+        "inlet_temp": 35.0,
+        "start_temp": 38.0,
+        "reynolds": 450.0,
+        "phi_pct": 0.5,
+        "duration_min": 20.0
+      },
+      "t_max_c": 45.12,
+      "t_max_interval_90": [
+        44.65,
+        45.6
+      ],
+      "delta_t_c": 1.6,
+      "hotspot": "C2",
+      "hotspot_top3": [
+        "C2",
+        "C9",
+        "C6"
+      ],
+      "risk": "critical",
+      "risk_action": "Derate charge/discharge current and apply maximum cooling; escalate to engineer.",
+      "opt_status": "feasible",
+      "opt_action": "Set coolant Re\u2248400 (0.67 L/min), inlet 25 \u00b0C, nanofluid 2.0 vol%.",
+      "opt_recommendation": {
+        "reynolds": 400.0,
+        "phi_pct": 2.0,
+        "inlet_temp_c": 25.0,
+        "flow_l_min": 0.669,
+        "predicted_t_max_upper_c": 39.68,
+        "predicted_delta_t_upper_c": 2.39,
+        "pumping_power_w": 0.0163,
+        "chiller_power_w": 132.013,
+        "total_cooling_power_w": 132.029
+      },
+      "twin_t_max_c": 44.02,
+      "twin_delta_t_c": 1.2,
+      "twin_hotspot": "C2"
+    },
+    {
+      "name": "T4_aged_pack_extreme_heat",
+      "input": {
+        "mode": "discharge",
+        "c_rate": 3.0,
+        "soc_start": 0.95,
+        "soh": 0.7,
+        "ambient_temp": 45.0,
+        "inlet_temp": 35.0,
+        "start_temp": 39.0,
+        "reynolds": 450.0,
+        "phi_pct": 0.5,
+        "duration_min": 20.0
+      },
+      "t_max_c": 45.64,
+      "t_max_interval_90": [
+        45.17,
+        46.12
+      ],
+      "delta_t_c": 1.5,
+      "hotspot": "C2",
+      "hotspot_top3": [
+        "C2",
+        "C9",
+        "C3"
+      ],
+      "risk": "critical",
+      "risk_action": "Derate charge/discharge current and apply maximum cooling; escalate to engineer.",
+      "opt_status": "feasible",
+      "opt_action": "Set coolant Re\u2248400 (0.68 L/min), inlet 24 \u00b0C, nanofluid 2.0 vol%.",
+      "opt_recommendation": {
+        "reynolds": 400.0,
+        "phi_pct": 2.0,
+        "inlet_temp_c": 24.0,
+        "flow_l_min": 0.684,
+        "predicted_t_max_upper_c": 39.97,
+        "predicted_delta_t_upper_c": 2.58,
+        "pumping_power_w": 0.01746,
+        "chiller_power_w": 148.586,
+        "total_cooling_power_w": 148.604
+      },
+      "twin_t_max_c": 44.48,
+      "twin_delta_t_c": 1.26,
+      "twin_hotspot": "C2"
+    },
+    {
+      "name": "T5_hot_soaked_pack_precool",
+      "input": {
+        "mode": "discharge",
+        "c_rate": 2.8,
+        "soc_start": 0.95,
+        "soh": 0.75,
+        "ambient_temp": 45.0,
+        "inlet_temp": 32.0,
+        "start_temp": 44.0,
+        "reynolds": 450.0,
+        "phi_pct": 0.5,
+        "duration_min": 20.0
+      },
+      "t_max_c": 44.0,
+      "t_max_interval_90": [
+        43.52,
+        44.47
+      ],
+      "delta_t_c": 1.61,
+      "hotspot": "C2",
+      "hotspot_top3": [
+        "C2",
+        "C9",
+        "C3"
+      ],
+      "risk": "warning",
+      "risk_action": "Increase cooling: call /api/optimize for a setpoint recommendation.",
+      "opt_status": "infeasible",
+      "opt_action": "Pack already starts at 44.0 \u00b0C, at or above the 40 \u00b0C target. Pre-cool the pack before applying load; escalate to engineer.",
+      "opt_recommendation": {
+        "reynolds": 650.0,
+        "phi_pct": 2.0,
+        "inlet_temp_c": 18.0,
+        "flow_l_min": 1.285,
+        "predicted_t_max_upper_c": 44.43,
+        "predicted_delta_t_upper_c": 2.12,
+        "pumping_power_w": 0.07105,
+        "chiller_power_w": 354.945,
+        "total_cooling_power_w": 355.016
+      },
+      "twin_t_max_c": 44.0,
+      "twin_delta_t_c": 1.17,
+      "twin_hotspot": "C2"
+    },
+    {
+      "name": "T6_fast_charge",
+      "input": {
+        "mode": "charge",
+        "c_rate": 2.0,
+        "soc_start": 0.1,
+        "soh": 0.75,
+        "ambient_temp": 40.0,
+        "inlet_temp": 32.0,
+        "start_temp": 37.0,
+        "reynolds": 450.0,
+        "phi_pct": 0.5,
+        "duration_min": 20.0
+      },
+      "t_max_c": 37.1,
+      "t_max_interval_90": [
+        36.63,
+        37.58
+      ],
+      "delta_t_c": 0.89,
+      "hotspot": "C9",
+      "hotspot_top3": [
+        "C9",
+        "C2",
+        "C8"
+      ],
+      "risk": "normal",
+      "risk_action": "Maintain current cooling settings.",
+      "opt_status": "feasible",
+      "opt_action": "Set coolant Re\u2248400 (0.58 L/min), inlet 32 \u00b0C, nanofluid 0.0 vol%.",
+      "opt_recommendation": {
+        "reynolds": 400.0,
+        "phi_pct": 0.0,
+        "inlet_temp_c": 32.0,
+        "flow_l_min": 0.578,
+        "predicted_t_max_upper_c": 37.6,
+        "predicted_delta_t_upper_c": 1.23,
+        "pumping_power_w": 0.00992,
+        "chiller_power_w": 0.0,
+        "total_cooling_power_w": 0.01
+      },
+      "twin_t_max_c": 37.0,
+      "twin_delta_t_c": 0.59,
+      "twin_hotspot": "C2"
+    }
+  ],
+  "invalid": [
+    {
+      "name": "I1_out_of_range_reynolds",
+      "status": 422,
+      "errors": [
+        {
+          "field": "reynolds",
+          "error": "out of supported range [400.0, 700.0] -",
+          "value": 900.0
+        }
+      ]
+    },
+    {
+      "name": "I2_wrong_type_and_missing",
+      "status": 422,
+      "errors": [
+        {
+          "field": "c_rate",
+          "error": "must be a number, got str"
+        },
+        {
+          "field": "soh",
+          "error": "missing"
+        }
+      ]
+    },
+    {
+      "name": "I3_bad_mode",
+      "status": 422,
+      "errors": [
+        {
+          "field": "mode",
+          "error": "must be one of ['charge', 'discharge']"
+        }
+      ]
+    },
+    {
+      "name": "I4_charge_above_2C",
+      "status": 422,
+      "errors": [
+        {
+          "field": "c_rate",
+          "error": "charging above 2.0C is outside the supported envelope"
+        }
+      ]
+    },
+    {
+      "name": "I5_unknown_field",
+      "status": 422,
+      "errors": [
+        {
+          "field": "voltage",
+          "error": "unknown field(s)"
+        }
+      ]
+    },
+    {
+      "name": "I6_malformed_json",
+      "status": 400,
+      "errors": "request body must be valid JSON with Content-Type: application/json"
+    },
+    {
+      "name": "I7_batch_over_500",
+      "status": 413,
+      "errors": "batch too large: 501 > 500"
+    }
+  ],
+  "failure": [
+    {
+      "name": "F1_model_file_missing",
+      "health_status": 503,
+      "health_body": {
+        "status": "degraded",
+        "host": "Legiondary",
+        "model_loaded": false,
+        "uptime_s": 0.0,
+        "error": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmp7w5fakpp/missing.joblib'"
+      },
+      "predict_status": 503,
+      "predict_body": {
+        "error": "model unavailable, service degraded",
+        "detail": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmp7w5fakpp/missing.joblib'"
+      }
+    }
+  ],
+  "latency_ms_in_process": {
+    "/api/predict": 24.08,
+    "/api/optimize": 35.62,
+    "/api/simulate": 81.57,
+    "note": "median wall time, Flask test client, single thread, OMP_NUM_THREADS=1"
+  }
+}

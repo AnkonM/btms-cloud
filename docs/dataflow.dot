@@ -1,0 +1,20 @@
+digraph flow {
+  graph [rankdir=LR, fontname="Helvetica", fontsize=11, nodesep=0.3, ranksep=0.4, pad=0.2];
+  node  [shape=box, style="rounded,filled", fillcolor="#ffffff", color="#52514e", fontname="Helvetica", fontsize=10];
+  edge  [color="#52514e", fontname="Helvetica", fontsize=9];
+
+  in   [label="INPUT (JSON)\nmode, C-rate, SOC, SOH,\nambient, inlet & pack temp,\nReynolds no., nanofluid %, window", fillcolor="#fff6e5", color="#eda100"];
+  val  [label="Validation\ntypes, ranges,\nunknown fields\n-> HTTP 422", fillcolor="#fdeee7", color="#eb6834"];
+  feat [label="Feature vector\n(10 inputs +\nphysics estimate)"];
+  ml   [label="Physics prior + ML (HGB)\nT_max, dT_max\n+ hotspot cell\n+ 90% interval", fillcolor="#e8f1fb", color="#2a78d6"];
+  hyd  [label="Hydraulics\nflow, pressure drop,\npumping power"];
+  risk [label="Rule-based safety layer\n<40 normal, 40-45 warning,\n>45 critical; dT>5 warning"];
+  opt  [label="Optimiser\n~500 settings: Re x phi x inlet\nmin cooling power s.t.\nT_max upper <= 40 C, dT <= 5 C", fillcolor="#e8f1fb", color="#2a78d6"];
+  twin [label="Digital twin\n(transient physics sim,\nper-cell temps)"];
+  out  [label="OUTPUT\nJSON + dashboard:\npredictions, risk, hotspot,\nrecommended setpoint,\nengineer approval flag", fillcolor="#ddf3ea", color="#1baf7a"];
+
+  in -> val -> feat -> ml -> risk -> out;
+  feat -> hyd -> risk;
+  ml -> opt -> out;
+  val -> twin -> out [style=dashed];
+}

@@ -1,0 +1,50 @@
+digraph btms {
+  graph [rankdir=TB, fontname="Helvetica", fontsize=11, nodesep=0.3, ranksep=0.45, pad=0.2, newrank=true];
+  node  [shape=box, style="rounded,filled", fillcolor="#ffffff", color="#52514e", fontname="Helvetica", fontsize=10];
+  edge  [color="#52514e", fontname="Helvetica", fontsize=9];
+
+  subgraph cluster_dev {
+    label="Developer laptop (Windows + Docker Desktop)"; style="rounded,dashed"; color="#8a8984"; fontsize=10;
+    gen   [label="Synthetic data generator\n(physics surrogate, app/physics.py)\n20,000 scenarios"];
+    train [label="Model training\ngrey-box T_max (physics + HGB),\nHGB dT + hotspot, conformal 90%"];
+    code  [label="Flask API + dashboard\n+ model bundle"];
+    df    [label="Dockerfile\npython:3.13-slim, non-root,\nHEALTHCHECK", fillcolor="#e8f1fb", color="#2a78d6"];
+    gen -> train [label="CSV"];
+    train -> code [label="btms_model.joblib"];
+    code -> df;
+  }
+
+  hub [label="Docker Hub\n<user>/btms-api:1.0\n(Exp 2)", shape=cylinder, fillcolor="#e8f1fb", color="#2a78d6"];
+  df -> hub [label="docker build\ndocker push"];
+
+  subgraph cluster_k8s {
+    label="Kubernetes cluster (minikube) - namespace btms  (Exp 3)"; style="rounded"; color="#1baf7a"; fontsize=10; bgcolor="#f2fbf7";
+    svc [label="Service btms-api\nNodePort 30080 -> 8000", fillcolor="#ddf3ea", color="#1baf7a"];
+    hpa [label="HPA\n2-5 replicas\nCPU target 70%", shape=note, fillcolor="#ddf3ea", color="#1baf7a"];
+    subgraph cluster_pods {
+      label="Deployment btms-api (rolling update, readiness/liveness probes)"; style="rounded,dashed"; color="#1baf7a";
+      p1 [label="Pod 1\ngunicorn 2 workers x 4 threads\nreq 300m CPU / 256Mi\nlimit 1 CPU / 1Gi"];
+      p2 [label="Pod 2\n(same image)"];
+      p3 [label="Pod N\n(added by HPA)", style="rounded,dashed"];
+    }
+    svc -> p1; svc -> p2; svc -> p3 [style=dashed];
+    hpa -> p3 [style=dotted, arrowhead=none, label="scales"];
+  }
+  hub -> p1 [label="image pull", style=dashed];
+
+  eng  [label="Thermal engineer\n(browser dashboard)", shape=oval, fillcolor="#fff6e5", color="#eda100"];
+  bms  [label="Pack / BMS gateways\n(JSON telemetry,\nsimulated by load generator)", shape=oval, fillcolor="#fff6e5", color="#eda100"];
+  eng -> svc [label="HTTP"];
+  bms -> svc [label="POST /api/predict\n/api/optimize"];
+
+  subgraph cluster_bench {
+    label="Benchmark harness (Exp 7 and 8)"; style="rounded,dashed"; color="#eb6834"; fontsize=10;
+    lg   [label="loadgen.py\n25 req/s, 85% predict / 15% optimise\n+ saturation test"];
+    rm   [label="run_matrix.py\ndocker run --cpus --memory\n+ docker stats sampling"];
+    rs   [label="rightsize.py (Exp 7)\np95 CPU / 0.70 -> Fargate size", fillcolor="#fdeee7", color="#eb6834"];
+    fo   [label="analyze.py (Exp 8)\nSLO check + cost/month\n(pricing.json, estimates)", fillcolor="#fdeee7", color="#eb6834"];
+    lg -> rm; rm -> rs; rm -> fo;
+  }
+  hub -> rm [label="same image", style=dashed];
+  rs -> p1 [label="resource limits", style=dotted, constraint=false];
+}

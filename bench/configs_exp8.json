@@ -1,0 +1,9 @@
+{
+  "description": "Experiment 8 - same workload on four AWS Fargate-valid task sizes (vCPU / memory). Workers scale with vCPU.",
+  "configs": [
+    {"name": "exp8_A_0.25vcpu_0.5gb", "cpus": 0.25, "memory_mb": 512,  "workers": 1, "threads": 4},
+    {"name": "exp8_B_0.5vcpu_1gb",    "cpus": 0.5,  "memory_mb": 1024, "workers": 1, "threads": 4},
+    {"name": "exp8_C_1vcpu_2gb",      "cpus": 1,    "memory_mb": 2048, "workers": 2, "threads": 4},
+    {"name": "exp8_D_2vcpu_4gb",      "cpus": 2,    "memory_mb": 4096, "workers": 4, "threads": 4}
+  ]
+}

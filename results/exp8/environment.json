@@ -1,0 +1,12 @@
+{
+  "run_at": "2026-10-21T15:06:07+00:00",
+  "host_os": "Linux 6.18.33.2-microsoft-standard-WSL2",
+  "host_logical_cpus": 16,
+  "docker_server": "29.9.1",
+  "image": "ankonm/btms-api:1.0",
+  "design_rps": 25,
+  "fixed_seconds": 60,
+  "sat_concurrency": 12,
+  "sat_seconds": 30,
+  "workload": "85% /api/predict, 15% /api/optimize, fixed-seed payloads (bench/loadgen.py)"
+}

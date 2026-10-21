@@ -1,0 +1,69 @@
+# Experiment 3 - Deployment of the containerised BTMS prediction service.
+# Replace DOCKERHUB_USER with your Docker Hub username before applying.
+# Resource limits come from the Experiment 7 right-sizing result (1 vCPU per replica).
+# Requests sit slightly above the measured demand per replica when 2 replicas share the
+# 25 req/s design load (~0.21 vCPU mean, ~157 MiB peak with 2 workers).
+# The memory limit is 1Gi rather than the Fargate-size 2Gi to fit a 4 GB minikube node;
+# it is still about 6x the measured peak.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btms-api
+  namespace: btms
+  labels:
+    app: btms-api
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: btms-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: btms-api
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+      containers:
+        - name: btms-api
+          image: DOCKERHUB_USER/btms-api:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: WORKERS
+              value: "2"
+            - name: THREADS
+              value: "4"
+            - name: OMP_NUM_THREADS
+              value: "1"
+          resources:
+            requests:
+              cpu: 300m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          startupProbe:
+            httpGet: {path: /api/health, port: http}
+            periodSeconds: 3
+            failureThreshold: 20
+          readinessProbe:
+            httpGet: {path: /api/health, port: http}
+            periodSeconds: 5
+            failureThreshold: 2
+          livenessProbe:
+            httpGet: {path: /api/health, port: http}
+            periodSeconds: 10
+            failureThreshold: 3
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false

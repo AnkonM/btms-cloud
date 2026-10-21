@@ -1,0 +1,6 @@
+# Extra tools for training figures, tests and the Experiment 7/8 benchmark
+-r requirements.txt
+matplotlib==3.11.2
+requests==2.34.2
+pytest>=8
+PyYAML>=6

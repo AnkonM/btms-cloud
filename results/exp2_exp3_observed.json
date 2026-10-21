@@ -1,0 +1,21 @@
+{
+  "exp2": {
+    "image": "ankonm/btms-api:1.0",
+    "image_size": "651 MB on disk (151 MB content; 143.92 MB compressed on Docker Hub)",
+    "build_seconds": 149,
+    "health": "healthy (5.7 s after docker run)",
+    "hub_url": "https://hub.docker.com/r/ankonm/btms-api",
+    "digest": "sha256:38db1231e751"
+  },
+  "exp3": {
+    "cluster": "minikube v1.39.0 (Docker driver, 4 CPU / 4 GB), Kubernetes v1.37.0, metrics-server v0.9.0",
+    "pods_ready": "2/2 Running and Ready 51 s after kubectl apply (image pulled from Docker Hub)",
+    "service_url": "http://127.0.0.1:59379 (minikube service tunnel → NodePort 30080)",
+    "load_balanced": "yes: 8 calls answered by btms-api-746996f8dd-pv7rc and btms-api-746996f8dd-9lpw6",
+    "scale4": "4/4 Ready 4.7 s after kubectl scale (HPA paused for this manual step)",
+    "pod_replace": "replacement pod Ready 4.5 s after kubectl delete pod",
+    "hpa": "2 → 4 → 5 replicas (max); CPU peaked at 272 % of request (target 70 %); 10,930 requests, 0 errors at 60.6 req/s; back to 2 replicas after the load",
+    "bad_image": "new pod in ImagePullBackOff; both old pods kept serving (6/6 health calls ok); rollout undo successful",
+    "f3": "pod replaced in 4.5 s; bad tag stuck in ImagePullBackOff while old pods served; undo restored revision"
+  }
+}

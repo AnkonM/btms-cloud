@@ -1,0 +1,2 @@
+name,cpus,memory_mb,workers,threads,fixed_achieved_rps,fixed_p50_ms,fixed_p95_ms,fixed_p99_ms,fixed_error_rate,fixed_cpu_cores_mean,fixed_cpu_cores_p95,fixed_cpu_util_pct,fixed_mem_mib_max,fixed_mem_util_pct,sat_rps,sat_p95_ms,sat_cpu_cores_mean,sat_mem_mib_max,oom_killed
+exp7_after_1vcpu_2gb,1,2048,2,4,25.01,14.37,24.09,30.0,0.0,0.368,0.555,36.8,177.7,8.7,19.58,1190.75,0.947,169.7,False

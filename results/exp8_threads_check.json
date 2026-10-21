@@ -1,0 +1,6 @@
+{
+  "note": "Diagnostic run after Experiment 8, same host and image: 2 vCPU / 4 GiB, 4 Gunicorn workers, closed loop with 12 users for 15 s, only THREADS changed.",
+  "run_at": "2026-10-21",
+  "threads_4": {"achieved_rps": 37.35, "cpu_seconds": 30},
+  "threads_1": {"achieved_rps": 119.75, "cpu_seconds": 30}
+}

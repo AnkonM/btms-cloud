@@ -1,0 +1,2 @@
+Summary: 4 resources found in 4 files - Valid: 4, Invalid: 0, Errors: 0, Skipped: 0
+kubeconform v0.8.0, Kubernetes 1.31.0 schemas, -strict

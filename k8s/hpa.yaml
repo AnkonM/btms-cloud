@@ -1,0 +1,25 @@
+# Experiment 3 - Horizontal Pod Autoscaler. Needs metrics-server
+# (minikube: `minikube addons enable metrics-server`).
+# Adds pods when average CPU exceeds 70 % of the 300m request.
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: btms-api
+  namespace: btms
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: btms-api
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 60

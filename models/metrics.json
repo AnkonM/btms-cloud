@@ -1,0 +1,259 @@
+{
+  "rows": {
+    "total": 20000,
+    "train": 14380,
+    "test": 3596,
+    "ood_test": 2024
+  },
+  "t_max": {
+    "physics_closed_form_baseline": {
+      "test": {
+        "mae": 0.3664,
+        "rmse": 0.5742,
+        "r2": 0.9883
+      },
+      "ood": {
+        "mae": 0.2065,
+        "rmse": 0.2683,
+        "r2": 0.9816
+      },
+      "fit_seconds": 0.0,
+      "single_row_predict_ms": 0.012,
+      "model_size_kb": 0.0
+    },
+    "linear_regression": {
+      "test": {
+        "mae": 2.0631,
+        "rmse": 2.5128,
+        "r2": 0.776
+      },
+      "ood": {
+        "mae": 3.7498,
+        "rmse": 4.5005,
+        "r2": -4.1771
+      },
+      "fit_seconds": 0.01,
+      "single_row_predict_ms": 0.855,
+      "model_size_kb": 1.1
+    },
+    "random_forest": {
+      "test": {
+        "mae": 0.335,
+        "rmse": 0.4643,
+        "r2": 0.9924
+      },
+      "ood": {
+        "mae": 0.5103,
+        "rmse": 0.8251,
+        "r2": 0.826
+      },
+      "fit_seconds": 5.94,
+      "single_row_predict_ms": 7.006,
+      "model_size_kb": 35437.9
+    },
+    "hgb_pure_ml": {
+      "test": {
+        "mae": 0.291,
+        "rmse": 0.3803,
+        "r2": 0.9949
+      },
+      "ood": {
+        "mae": 0.6548,
+        "rmse": 1.0271,
+        "r2": 0.7303
+      },
+      "fit_seconds": 0.69,
+      "single_row_predict_ms": 2.838,
+      "model_size_kb": 858.5
+    },
+    "greybox_hgb (deployed)": {
+      "test": {
+        "mae": 0.2339,
+        "rmse": 0.3038,
+        "r2": 0.9967
+      },
+      "ood": {
+        "mae": 0.2117,
+        "rmse": 0.2696,
+        "r2": 0.9814
+      },
+      "fit_seconds": 0.6,
+      "single_row_predict_ms": 2.454,
+      "model_size_kb": 761.9
+    }
+  },
+  "delta_t_max": {
+    "linear_regression": {
+      "test": {
+        "mae": 0.1849,
+        "rmse": 0.2501,
+        "r2": 0.6814
+      },
+      "ood": {
+        "mae": 0.1829,
+        "rmse": 0.2367,
+        "r2": 0.6222
+      },
+      "fit_seconds": 0.01,
+      "single_row_predict_ms": 0.492,
+      "model_size_kb": 1.1
+    },
+    "random_forest": {
+      "test": {
+        "mae": 0.1545,
+        "rmse": 0.2089,
+        "r2": 0.7777
+      },
+      "ood": {
+        "mae": 0.183,
+        "rmse": 0.2369,
+        "r2": 0.6216
+      },
+      "fit_seconds": 6.91,
+      "single_row_predict_ms": 5.451,
+      "model_size_kb": 35404.7
+    },
+    "hgb_monotonic (deployed)": {
+      "test": {
+        "mae": 0.1542,
+        "rmse": 0.2081,
+        "r2": 0.7794
+      },
+      "ood": {
+        "mae": 0.1782,
+        "rmse": 0.231,
+        "r2": 0.6402
+      },
+      "fit_seconds": 0.44,
+      "single_row_predict_ms": 1.85,
+      "model_size_kb": 599.3
+    }
+  },
+  "t_max_interval": {
+    "method": "split conformal, |residual| quantile",
+    "nominal": 0.9,
+    "half_width_c": 0.482,
+    "empirical_coverage_test": 0.8902,
+    "empirical_coverage_ood": 0.9343
+  },
+  "risk_band_accuracy": {
+    "test": 0.993,
+    "ood": 0.9565
+  },
+  "hotspot_cell": {
+    "majority_rule_baseline": {
+      "rule": "always predict C2",
+      "top1_accuracy": 0.2951
+    },
+    "hist_gradient_boosting": {
+      "top1_accuracy": 0.4035,
+      "top3_accuracy": 0.7592
+    },
+    "label_distribution": {
+      "C2": 0.309,
+      "C9": 0.217,
+      "C5": 0.124,
+      "C8": 0.106,
+      "C3": 0.088,
+      "C1": 0.044,
+      "C6": 0.031,
+      "C10": 0.03,
+      "C7": 0.027,
+      "C4": 0.025
+    }
+  },
+  "deployed_bundle": {
+    "version": "1.1.0",
+    "model_type": "grey-box: closed-form physics prior + HistGradientBoosting residual (T_max); HGB (dT, hotspot)",
+    "features": [
+      "is_charging",
+      "c_rate",
+      "soc_start",
+      "soh",
+      "ambient_temp",
+      "inlet_temp",
+      "start_temp",
+      "reynolds",
+      "phi_pct",
+      "duration_min",
+      "phys_t_est"
+    ],
+    "cells": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7",
+      "C8",
+      "C9",
+      "C10"
+    ],
+    "trained_rows": 20000,
+    "trained_at": "2026-10-14T10:24:13+00:00",
+    "sklearn": "1.9.1",
+    "python": "3.13.16",
+    "feature_ranges": {
+      "is_charging": [
+        0.0,
+        1.0
+      ],
+      "c_rate": [
+        0.5,
+        3.0
+      ],
+      "soc_start": [
+        0.05,
+        0.98
+      ],
+      "soh": [
+        0.7,
+        1.0
+      ],
+      "ambient_temp": [
+        15.0,
+        45.0
+      ],
+      "inlet_temp": [
+        18.0,
+        35.0
+      ],
+      "start_temp": [
+        15.0,
+        47.93
+      ],
+      "reynolds": [
+        400.0,
+        700.0
+      ],
+      "phi_pct": [
+        0.0,
+        2.0
+      ],
+      "duration_min": [
+        5.0,
+        30.0
+      ],
+      "phys_t_est": [
+        18.109,
+        47.93
+      ]
+    },
+    "intervals": {
+      "t_max_q90": 0.4748,
+      "delta_t_q90": 0.3308
+    },
+    "monotonic_constraints": {
+      "t_max_residual": {
+        "c_rate": 1,
+        "inlet_temp": 1,
+        "reynolds": -1
+      },
+      "delta_t_max": {
+        "c_rate": 1,
+        "reynolds": -1
+      }
+    }
+  }
+}

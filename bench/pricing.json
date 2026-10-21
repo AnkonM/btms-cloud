@@ -1,0 +1,16 @@
+{
+  "basis": "ESTIMATE, not an actual bill. AWS Fargate on-demand list price, Linux/x86, US East (N. Virginia). The AWS pricing page quotes per-second rates of USD 0.000011244 per vCPU-second and USD 0.000001235 per GB-second; multiplied by 3600.",
+  "retrieved": "2026-10-14",
+  "source_urls": ["https://aws.amazon.com/fargate/pricing/"],
+  "region": "us-east-1",
+  "vcpu_hour_usd": 0.0404784,
+  "gb_hour_usd": 0.004446,
+  "hours_per_month": 730,
+  "caveat": "Asia Pacific (Mumbai) Fargate rates were not retrievable on the retrieval date and are typically somewhat higher; storage, data transfer, load balancer and taxes are excluded.",
+  "ec2_reference_ap_south_1": {
+    "source": "https://www.doit.com/compute/spot/ap-south-1/ (on-demand column), retrieved 2026-10-14",
+    "t3.micro":  {"vcpu": 2, "memory_gib": 1, "usd_hour": 0.0112},
+    "t3.small":  {"vcpu": 2, "memory_gib": 2, "usd_hour": 0.0224},
+    "t3.medium": {"vcpu": 2, "memory_gib": 4, "usd_hour": 0.0448}
+  }
+}

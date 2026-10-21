@@ -1,0 +1,14 @@
+.git
+**/__pycache__
+*.pyc
+.pytest_cache
+results/
+report/
+docs/
+bench/
+k8s/
+tests/
+models/
+data/btms_synthetic.csv
+*.zip
+*.md

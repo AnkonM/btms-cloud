@@ -1,0 +1,19 @@
+{
+  "members": [
+    {
+      "name": "Aneeket Banerjee",
+      "roll_no": "16014223009"
+    },
+    {
+      "name": "Ankon Mukherjee",
+      "roll_no": "16014223014"
+    },
+    {
+      "name": "Atharva Gondavale",
+      "roll_no": "16014223023"
+    }
+  ],
+  "batch": "B1",
+  "programme": "B.Tech Artificial Intelligence and Data Science",
+  "repo_url": "https://github.com/AnkonM/btms-cloud"
+}

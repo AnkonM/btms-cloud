@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BTMS Cloud Prototype</title>
+<style>
+  :root {
+    --bg: #f4f5f2; --panel: #ffffff; --ink: #1b1f1d; --muted: #5f6762; --line: #d9ddd8;
+    --accent: #0f6b5c; --accent-ink: #ffffff; --cool: #2f6fb0; --warn: #b7791f; --crit: #b42318; --ok: #1f7a4d;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --sans: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 var(--sans); }
+  header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;
+           padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--panel); }
+  header h1 { font-size: 17px; margin: 0; letter-spacing: .2px; }
+  header .sub { color: var(--muted); font-size: 12px; }
+  .pill { font: 12px var(--mono); padding: 3px 8px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+  .pill.ok { color: var(--ok); border-color: #b9d8c6; } .pill.bad { color: var(--crit); border-color: #f0c2bd; }
+  .banner { background: #fff8e6; border-bottom: 1px solid #f0dfb0; color: #6b5310; padding: 6px 20px; font-size: 12px; }
+  main { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 16px; padding: 16px 20px 40px; max-width: 1280px; margin: 0 auto; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  section.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); margin: 0 0 10px; }
+  label { display: grid; grid-template-columns: 1fr 118px; align-items: center; gap: 8px; margin: 6px 0; font-size: 13px; }
+  label small { color: var(--muted); display: block; font-size: 11px; }
+  input, select { width: 100%; padding: 5px 7px; border: 1px solid var(--line); border-radius: 5px; font: 13px var(--mono); background: #fbfcfa; color: var(--ink); }
+  .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  button { padding: 8px 10px; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); font: 600 13px var(--sans); cursor: pointer; }
+  button.ghost { background: transparent; color: var(--accent); }
+  button.danger { background: transparent; color: var(--crit); border-color: #e3a49d; }
+  button:disabled { opacity: .5; cursor: wait; }
+  .right { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-content: start; min-width: 0; }
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 700px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  .kpi .k { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+  .kpi .v { font: 600 26px var(--mono); margin-top: 4px; }
+  .kpi .s { font: 12px var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+  .risk-normal { color: var(--ok); } .risk-warning { color: var(--warn); } .risk-critical { color: var(--crit); }
+  .two { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px; }
+  @media (max-width: 1100px) { .two { grid-template-columns: 1fr; } }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 6px; border-bottom: 1px solid var(--line); }
+  th { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; font-weight: 600; }
+  td.num { font-family: var(--mono); }
+  .action { margin-top: 10px; padding: 10px 12px; border-left: 3px solid var(--accent); background: #eef6f3; font-size: 13px; }
+  .note { color: var(--muted); font-size: 12px; margin-top: 8px; }
+  pre { margin: 0; max-height: 260px; overflow: auto; font: 12px/1.4 var(--mono); background: #f7f8f6; border: 1px solid var(--line); border-radius: 6px; padding: 10px; }
+  svg text { font-family: var(--sans); }
+  .meta { font: 12px var(--mono); color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>AI-Enabled Micro-channel BTMS · Cloud Prototype</h1>
+    <div class="sub">KJS-CES-02 · 10 × 21700 cells · Al₂O₃/water micro-channel cooling · thermal prediction + cooling optimiser</div>
+  </div>
+  <div style="display:flex; gap:8px; flex-wrap:wrap">
+    <span class="pill" id="health">checking…</span>
+    <span class="pill" id="servedby">host –</span>
+  </div>
+</header>
+<div class="banner">Educational prototype. Trained on clearly labelled synthetic data from a physics-informed surrogate (not CFD, not a real pack). Recommendations are advisory and need engineer approval.</div>
+
+<main>
+  <section class="card">
+    <h2>Operating condition</h2>
+    <label><span>Scenario</span><select id="scenario"></select></label>
+    <label><span>Mode</span><select id="mode"><option>discharge</option><option>charge</option></select></label>
+    <label><span>C-rate<small>0.5–3.0 (charge ≤ 2.0)</small></span><input id="c_rate" type="number" step="0.1"></label>
+    <label><span>Start SOC<small>0.05–0.98</small></span><input id="soc_start" type="number" step="0.01"></label>
+    <label><span>State of health<small>0.70–1.00</small></span><input id="soh" type="number" step="0.01"></label>
+    <label><span>Ambient °C<small>15–45</small></span><input id="ambient_temp" type="number" step="0.5"></label>
+    <label><span>Coolant inlet °C<small>18–35</small></span><input id="inlet_temp" type="number" step="0.5"></label>
+    <label><span>Pack start °C<small>15–48</small></span><input id="start_temp" type="number" step="0.5"></label>
+    <label><span>Reynolds no.<small>400–700</small></span><input id="reynolds" type="number" step="10"></label>
+    <label><span>Nanofluid vol %<small>0–2</small></span><input id="phi_pct" type="number" step="0.1"></label>
+    <label><span>Window, min<small>5–30</small></span><input id="duration_min" type="number" step="1"></label>
+    <div class="btns">
+      <button id="bPredict">Predict</button>
+      <button id="bOptimize">Optimise cooling</button>
+      <button id="bTwin" class="ghost">Run digital twin</button>
+      <button id="bInvalid" class="danger">Send invalid input</button>
+    </div>
+    <p class="note" id="status">Ready.</p>
+  </section>
+
+  <div class="right">
+    <div class="kpis">
+      <div class="kpi"><div class="k">Peak cell temp</div><div class="v" id="kT">–</div><div class="s" id="kTi">90% interval –</div></div>
+      <div class="kpi"><div class="k">Cell spread ΔT</div><div class="v" id="kD">–</div><div class="s" id="kDi">limit 5.0 °C</div></div>
+      <div class="kpi"><div class="k">Likely hotspot</div><div class="v" id="kH">–</div><div class="s" id="kHp">–</div></div>
+      <div class="kpi"><div class="k">Risk</div><div class="v" id="kR">–</div><div class="s" id="kRa">–</div></div>
+    </div>
+
+    <div class="two">
+      <section class="card">
+        <h2>Pack view <span class="meta" id="packMode">(hotspot probability)</span></h2>
+        <svg id="pack" viewBox="0 0 520 250" width="100%" role="img" aria-label="Battery pack cell layout"></svg>
+      </section>
+      <section class="card">
+        <h2>Digital twin: cell temperature over time</h2>
+        <svg id="chart" viewBox="0 0 460 250" width="100%" role="img" aria-label="Simulated temperature chart"></svg>
+      </section>
+    </div>
+
+    <section class="card">
+      <h2>Cooling recommendation</h2>
+      <table id="optTable"><thead><tr><th></th><th>Re</th><th>Flow L/min</th><th>Inlet °C</th><th>φ vol%</th><th>T<sub>max</sub> upper °C</th><th>Cooling power W</th></tr></thead><tbody><tr><td colspan="7" class="note">Run “Optimise cooling”.</td></tr></tbody></table>
+      <div class="action" id="optAction" hidden></div>
+    </section>
+
+    <section class="card">
+      <h2>Last API response <span class="meta" id="lat"></span></h2>
+      <pre id="raw">–</pre>
+    </section>
+  </div>
+</main>
+
+<script>
+const SAMPLE = {{ sample | tojson }};
+const SCENARIOS = {{ scenarios | tojson }};
+const FIELDS = ["c_rate","soc_start","soh","ambient_temp","inlet_temp","start_temp","reynolds","phi_pct","duration_min"];
+const CELLS = ["C1","C2","C3","C4","C5","C6","C7","C8","C9","C10"];
+// approximate top-view positions taken from Fig. 1 of the use case (coolant flows left -> right)
+const POS = {C5:[70,165],C4:[160,165],C3:[250,165],C2:[340,165],C1:[430,165],
+             C6:[115,85],C7:[205,85],C8:[295,85],C9:[385,85],C10:[475,85]};
+const $ = id => document.getElementById(id);
+
+function fill(rec) { $("mode").value = rec.mode; FIELDS.forEach(f => $(f).value = rec[f]); }
+function read() { const r = {mode: $("mode").value}; FIELDS.forEach(f => r[f] = parseFloat($(f).value)); return r; }
+
+const sel = $("scenario");
+sel.add(new Option("Default sample", "__sample"));
+Object.keys(SCENARIOS.valid || {}).forEach(k => sel.add(new Option(k.replace(/_/g, " "), k)));
+sel.onchange = () => fill(sel.value === "__sample" ? SAMPLE : SCENARIOS.valid[sel.value]);
+fill(SAMPLE);
+
+async function call(path, body) {
+  const t0 = performance.now();
+  const res = await fetch(path, {method: body === undefined ? "GET" : "POST",
+    headers: {"Content-Type": "application/json"}, body: body === undefined ? undefined : JSON.stringify(body)});
+  const ms = performance.now() - t0;
+  const data = await res.json().catch(() => ({error: "non-JSON response"}));
+  $("servedby").textContent = "host " + (res.headers.get("X-Served-By") || "?");
+  $("lat").textContent = `${path} · HTTP ${res.status} · ${ms.toFixed(0)} ms round-trip · server ${res.headers.get("X-Response-Time-ms") || "?"} ms`;
+  $("raw").textContent = JSON.stringify(data, null, 2);
+  return {ok: res.ok, status: res.status, data};
+}
+
+function busy(on, msg) {
+  document.querySelectorAll("button").forEach(b => b.disabled = on);
+  $("status").textContent = msg;
+}
+
+function showPrediction(p) {
+  $("kT").textContent = p.t_max_c.toFixed(1) + " °C";
+  $("kTi").textContent = `90% interval ${p.t_max_interval_90[0]}–${p.t_max_interval_90[1]} °C`;
+  $("kD").textContent = p.delta_t_c.toFixed(2) + " °C";
+  $("kD").className = "v " + (p.delta_t_interval_90[1] > 5 ? "risk-warning" : "");
+  $("kH").textContent = p.hotspot.cell;
+  $("kHp").textContent = `p = ${p.hotspot.probability} · top-3 ${p.hotspot.top3.map(c => c.cell).join(", ")}`;
+  $("kR").textContent = p.risk.level;
+  $("kR").className = "v risk-" + p.risk.level;
+  $("kRa").textContent = p.risk.recommended_action;
+  const prob = {}; p.hotspot.top3.forEach(c => prob[c.cell] = c.probability);
+  drawPack(c => prob[c] || 0, "(hotspot probability, ML)", v => v ? (v * 100).toFixed(0) + "%" : "");
+}
+
+function heat(t) {          // 0..1 -> cool blue to hot red
+  const a = [47, 111, 176], b = [242, 201, 76], c = [180, 35, 24];
+  const mix = (x, y, k) => x.map((v, i) => Math.round(v + (y[i] - v) * k));
+  const rgb = t < .5 ? mix(a, b, t * 2) : mix(b, c, (t - .5) * 2);
+  return `rgb(${rgb})`;
+}
+
+function drawPack(valueOf, label, fmt) {
+  $("packMode").textContent = label;
+  const vals = CELLS.map(valueOf), lo = Math.min(...vals), hi = Math.max(...vals);
+  let s = `<rect x="20" y="30" width="500" height="190" rx="6" fill="#eef1ee" stroke="#c9cfca"/>`;
+  s += `<text x="24" y="22" font-size="11" fill="#5f6762">coolant in →</text><text x="440" y="242" font-size="11" fill="#5f6762">→ coolant out</text>`;
+  for (let y of [44, 206]) s += `<line x1="24" x2="516" y1="${y}" y2="${y}" stroke="#2f6fb0" stroke-width="2" stroke-dasharray="3 4" opacity=".6"/>`;
+  CELLS.forEach((c, i) => {
+    const [x, y] = POS[c], k = hi > lo ? (vals[i] - lo) / (hi - lo) : 0.5;
+    s += `<circle cx="${x}" cy="${y}" r="34" fill="${heat(k)}" stroke="#ffffff" stroke-width="2"/>`;
+    s += `<text x="${x}" y="${y - 3}" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">${c}</text>`;
+    s += `<text x="${x}" y="${y + 14}" text-anchor="middle" font-size="11" fill="#fff">${fmt(vals[i])}</text>`;
+  });
+  $("pack").innerHTML = s;
+}
+
+function drawChart(series) {
+  const W = 460, H = 250, L = 40, R = 12, T = 14, B = 34;
+  const t = series.t_s, mx = series.cells.map(r => Math.max(...r)), mn = series.cells.map(r => Math.min(...r)), co = series.coolant_out;
+  const all = mx.concat(mn, co), y0 = Math.floor(Math.min(...all) - 1), y1 = Math.ceil(Math.max(...all, 40) + 1);
+  const X = v => L + (v - t[0]) / (t[t.length - 1] - t[0] || 1) * (W - L - R);
+  const Y = v => T + (y1 - v) / (y1 - y0) * (H - T - B);
+  const path = arr => arr.map((v, i) => (i ? "L" : "M") + X(t[i]).toFixed(1) + "," + Y(v).toFixed(1)).join("");
+  let s = "";
+  for (let k = 0; k <= 4; k++) { const v = y0 + (y1 - y0) * k / 4;
+    s += `<line x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}" stroke="#e3e6e2"/><text x="${L - 6}" y="${Y(v) + 4}" text-anchor="end" font-size="10" fill="#5f6762">${v.toFixed(0)}</text>`; }
+  for (const [lim, col] of [[40, "#b7791f"], [45, "#b42318"]]) if (lim >= y0 && lim <= y1)
+    s += `<line x1="${L}" x2="${W - R}" y1="${Y(lim)}" y2="${Y(lim)}" stroke="${col}" stroke-dasharray="4 3"/><text x="${W - R}" y="${Y(lim) - 3}" text-anchor="end" font-size="10" fill="${col}">${lim} °C</text>`;
+  s += `<path d="${path(co)}" fill="none" stroke="#2f6fb0" stroke-width="1.6"/>`;
+  s += `<path d="${path(mn)}" fill="none" stroke="#7a8580" stroke-width="1.6"/>`;
+  s += `<path d="${path(mx)}" fill="none" stroke="#b42318" stroke-width="2"/>`;
+  s += `<text x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle" font-size="11" fill="#5f6762">time (min)</text>`;
+  [0, .5, 1].forEach(f => { const v = t[0] + (t[t.length - 1] - t[0]) * f;
+    s += `<text x="${X(v)}" y="${H - 20}" text-anchor="middle" font-size="10" fill="#5f6762">${(v / 60).toFixed(0)}</text>`; });
+  s += `<g font-size="10"><rect x="${L + 6}" y="${T + 2}" width="10" height="3" fill="#b42318"/><text x="${L + 20}" y="${T + 7}">hottest cell</text>
+        <rect x="${L + 92}" y="${T + 2}" width="10" height="3" fill="#7a8580"/><text x="${L + 106}" y="${T + 7}">coolest cell</text>
+        <rect x="${L + 178}" y="${T + 2}" width="10" height="3" fill="#2f6fb0"/><text x="${L + 192}" y="${T + 7}">coolant outlet</text></g>`;
+  $("chart").innerHTML = s;
+}
+
+function showOpt(o) {
+  const row = (name, r) => `<tr><td>${name}</td><td class="num">${r.reynolds}</td><td class="num">${r.flow_l_min ?? "–"}</td><td class="num">${r.inlet_temp_c}</td><td class="num">${r.phi_pct}</td><td class="num">${r.predicted_t_max_upper_c}</td><td class="num">${r.total_cooling_power_w ?? "–"}</td></tr>`;
+  $("optTable").tBodies[0].innerHTML = row("Current", o.current_setting) + row("<b>Recommended</b>", o.recommendation) + row("Max cooling", o.max_cooling_baseline);
+  const a = $("optAction"); a.hidden = false;
+  a.innerHTML = `<b>${o.status === "feasible" ? "Feasible" : "Infeasible"}:</b> ${o.action}<br><span class="note">${o.candidates_evaluated} settings evaluated · `
+    + (o.energy_saving_vs_max_cooling_w !== undefined ? `saves ${o.energy_saving_vs_max_cooling_w} W vs max cooling · ` : "")
+    + `engineer approval required</span>`;
+}
+
+$("bPredict").onclick = async () => { busy(true, "Predicting…");
+  const r = await call("/api/predict", read());
+  if (r.ok) { showPrediction(r.data.prediction); busy(false, "Prediction done."); } else busy(false, `Rejected (HTTP ${r.status}). See response below.`); };
+$("bOptimize").onclick = async () => { busy(true, "Optimising…");
+  const r = await call("/api/optimize", read());
+  if (r.ok) { showOpt(r.data.optimisation); busy(false, "Optimisation done."); } else busy(false, `Rejected (HTTP ${r.status}).`); };
+$("bTwin").onclick = async () => { busy(true, "Simulating…");
+  const r = await call("/api/simulate", read());
+  if (r.ok) { const d = r.data.digital_twin; drawChart(d.series);
+    drawPack(c => d.final_cell_temps[c], "(digital-twin final °C)", v => v.toFixed(1));
+    if (r.data.prediction) showPrediction(r.data.prediction);
+    drawPack(c => d.final_cell_temps[c], "(digital-twin final °C)", v => v.toFixed(1));
+    busy(false, `Twin: peak ${d.t_max_c} °C, hotspot ${d.hotspot_cell}, SOC end ${d.soc_end}.`); }
+  else busy(false, `Rejected (HTTP ${r.status}).`); };
+$("bInvalid").onclick = async () => { busy(true, "Sending invalid input…");
+  const bad = Object.assign(read(), {reynolds: 900, c_rate: "fast"}); delete bad.soh;
+  const r = await call("/api/predict", bad);
+  busy(false, `Server rejected invalid input with HTTP ${r.status} (expected 422).`); };
+
+call("/api/health").then(r => { const h = $("health");
+  h.textContent = r.ok ? `model v${r.data.model_version} · healthy` : "degraded: model not loaded";
+  h.className = "pill " + (r.ok ? "ok" : "bad"); $("raw").textContent = "–"; $("lat").textContent = ""; });
+drawPack(() => 0, "(run a prediction)", () => "");
+</script>
+</body>
+</html>
